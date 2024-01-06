@@ -1,2 +1,3 @@
 /www/myapp/composer.lock
 /www/myapp/vendor/
+/.docker/mysql/data/
