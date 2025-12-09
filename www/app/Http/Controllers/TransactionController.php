@@ -73,7 +73,8 @@ class TransactionController extends Controller
             'date' => 'required|date',
             'description' => 'nullable|string',
             'is_recurring' => 'nullable|boolean',
-            'status' => 'required|in:pending,paid,canceled'
+            'status' => 'required|in:pending,paid,canceled',
+            'cost_center_id' => ['nullable', 'exists:cost_centers,id'],
         ]);
 
         $data['user_id'] = auth()->id();
@@ -106,7 +107,8 @@ class TransactionController extends Controller
             'date' => 'required|date',
             'description' => 'nullable|string',
             'is_recurring' => 'nullable|boolean',
-            'status' => 'required|in:pending,paid,canceled'
+            'status' => 'required|in:pending,paid,canceled',
+            'cost_center_id' => ['nullable', 'exists:cost_centers,id'],
         ]);
 
         $transaction->update($data);

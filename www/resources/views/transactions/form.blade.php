@@ -66,6 +66,13 @@
     </select>
 </div>
 
+<div class="mb-3">
+    <label class="form-label">Anexos (notas, extratos, etc)</label>
+    <input type="file" name="files[]" class="form-control" multiple>
+    <small class="text-muted">Você pode selecionar múltiplos arquivos (máx 5MB cada).</small>
+</div>
+
+
 <button type="submit" class="btn btn-success">
     <i class="bi bi-check2-circle"></i> Salvar
 </button>

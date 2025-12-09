@@ -30,4 +30,9 @@ class Account extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function costCenter(): BelongsTo
+    {
+        return $this->belongsTo(CostCenter::class);
+    }
 }

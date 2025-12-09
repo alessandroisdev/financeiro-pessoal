@@ -65,6 +65,7 @@ class AccountController extends Controller
             'type' => ['required', 'in:cash,checking,savings,credit_card'],
             'initial_balance' => ['required', 'numeric'],
             'color' => ['nullable', 'string', 'max:10'],
+            'cost_center_id' => ['nullable', 'exists:cost_centers,id'],
         ]);
 
         $data['user_id'] = $request->user()->id;
@@ -100,6 +101,7 @@ class AccountController extends Controller
             'initial_balance' => ['required', 'numeric'],
             'color' => ['nullable', 'string', 'max:10'],
             'active' => ['nullable', 'boolean'],
+            'cost_center_id' => ['nullable', 'exists:cost_centers,id'],
         ]);
 
         $data['active'] = $request->boolean('active');

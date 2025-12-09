@@ -6,6 +6,24 @@
            value="{{ old('name', $account->name ?? '') }}" required>
 </div>
 
+@php
+    $costCenters = \App\Models\CostCenter::ofUser()->where('active', true)->orderBy('name')->get();
+@endphp
+
+<div class="mb-3">
+    <label class="form-label">Centro de Custo</label>
+    <select name="cost_center_id" class="form-control">
+        <option value="">Nenhum</option>
+        @foreach($costCenters as $cc)
+            <option value="{{ $cc->id }}"
+                {{ old('cost_center_id', $account->cost_center_id ?? '') == $cc->id ? 'selected' : '' }}>
+                {{ $cc->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+
 <div class="mb-3">
     <label for="type" class="form-label">Tipo</label>
     <select name="type" id="type" class="form-control" required>

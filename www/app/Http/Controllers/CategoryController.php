@@ -41,7 +41,8 @@ class CategoryController extends Controller
         $data = $request->validate([
             'name'  => 'required|string|max:255',
             'type'  => 'required|in:income,expense',
-            'color' => 'nullable|string|max:10'
+            'color' => 'nullable|string|max:10',
+            'cost_center_id' => ['nullable', 'exists:cost_centers,id'],
         ]);
 
         $data['user_id'] = auth()->id();
@@ -66,7 +67,8 @@ class CategoryController extends Controller
             'name'  => 'required|string|max:255',
             'type'  => 'required|in:income,expense',
             'color' => 'nullable|string|max:10',
-            'active'=> 'required|boolean'
+            'active'=> 'required|boolean',
+            'cost_center_id' => ['nullable', 'exists:cost_centers,id'],
         ]);
 
         $category->update($data);

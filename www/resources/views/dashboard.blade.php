@@ -39,6 +39,17 @@
             </div>
         </div>
 
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h3>Despesas por categoria (mês)</h3>
+                <div id="chart-by-category"></div>
+            </div>
+            <div class="col-md-6">
+                <h3>Receitas x Despesas (últimos meses)</h3>
+                <div id="chart-by-month"></div>
+            </div>
+        </div>
+
         @if(!empty($goals))
             <h2 class="mt-5">Metas do mês</h2>
 
@@ -115,3 +126,32 @@
         @endif
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        const categoryChartData = @json($categoryChartData);
+        const monthlyChartData = @json($monthlyChartData);
+
+        // Pizza por categoria (despesa mês corrente)
+        const categoryChart = new ApexCharts(document.querySelector("#chart-by-category"), {
+            chart: {type: 'donut'},
+            labels: categoryChartData.labels,
+            series: categoryChartData.series,
+            legend: {position: 'bottom'}
+        });
+        categoryChart.render();
+
+        // Linha por mês (receita x despesa últimos 6/12 meses)
+        const monthlyChart = new ApexCharts(document.querySelector("#chart-by-month"), {
+            chart: {type: 'line'},
+            xaxis: {categories: monthlyChartData.labels},
+            series: [
+                {name: 'Receitas', data: monthlyChartData.income},
+                {name: 'Despesas', data: monthlyChartData.expense}
+            ]
+        });
+        monthlyChart.render();
+    </script>
+@endpush

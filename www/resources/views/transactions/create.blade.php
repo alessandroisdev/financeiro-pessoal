@@ -8,7 +8,7 @@
 
         @include('partials.errors')
 
-        <form action="{{ route('transactions.store') }}" method="POST">
+        <form action="{{ route('transactions.store') }}" method="POST" enctype="multipart/form-data">
             @include('transactions.form')
         </form>
     </div>
