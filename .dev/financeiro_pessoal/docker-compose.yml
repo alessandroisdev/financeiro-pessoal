@@ -1,0 +1,72 @@
+services:
+  app:
+    build: .
+    container_name: financeiro_pessoal_app
+    volumes:
+      - ../../www:/var/www/html
+      - ../../www/public:/var/www/html/public
+    command: sh -c "git config --global --add safe.directory /var/www/html && php-fpm"
+    ports:
+      - "8084:80"
+    environment:
+      - TZ=America/Belem
+      - DB_HOST=db
+      - DB_NAME=financeiro_pessoal
+      - DB_USER=financeiro_pessoal
+      - DB_PASS=financeiro_pessoal
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - db
+      - redis
+    networks:
+      - financeiro_pessoal_net
+
+  nginx:
+    image: nginx:alpine
+    container_name: financeiro_pessoal_nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ../../www/public:/var/www/html/public
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - financeiro_pessoal_net
+
+  db:
+    image: mariadb:11.8.2
+    container_name: financeiro_pessoal_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: financeiro_pessoal
+      MYSQL_USER: financeiro_pessoal
+      MYSQL_PASSWORD: financeiro_pessoal
+    ports:
+      - "3306:3306"
+    volumes:
+      - financeiro_pessoal_db_data:/var/lib/mysql
+    networks:
+      - financeiro_pessoal_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: financeiro_pessoal_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - financeiro_pessoal_redis_data:/data
+#    command: redis-server --appendonly yes --requirepass "redis123"
+    networks:
+      - financeiro_pessoal_net
+
+volumes:
+  financeiro_pessoal_db_data:
+  financeiro_pessoal_redis_data:
+
+networks:
+  financeiro_pessoal_net:
+    driver: bridge

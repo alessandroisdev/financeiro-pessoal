@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "lib": [
+            "ES2020",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "rootDir": "public/ts",
+        "outDir": "public/js",
+        "sourceMap": true,
+        "removeComments": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "strict": true,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": false,
+        "types": [
+            "jquery",
+            "datatables.net",
+            "datatables.net-bs5"
+        ]
+    },
+    "include": [
+        "public/ts/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "vendor",
+        "public/js"
+    ]
+}

@@ -1,3 +1,0 @@
-CREATE USER 'alessandro'@'%' IDENTIFIED BY 'alessandro';
-GRANT ALL PRIVILEGES ON *.* TO 'alessandro'@'%' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
